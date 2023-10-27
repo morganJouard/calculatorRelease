@@ -12,7 +12,6 @@
         <connection>scm:git:https://github.com/morganJouard/calculatorRelease.git</connection>
         <url>http://github.com/morganJouard/calculatorRelease</url>
         <developerConnection>scm:git:https://github.com/morganJouard/calculatorRelease.git</developerConnection>
-      <tag>v1.0</tag>
   </scm>
 
   <properties>
