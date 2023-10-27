@@ -6,9 +6,16 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.insset</groupId>
-  <artifactId>calculatorInsset</artifactId>
+  <artifactId>calculatorRelease</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
+
+
+    <scm>
+        <connection>scm:git:https://github.com/morganJouard/ClculatorInsset.git</connection>
+        <url>http://github.com/morganJouard/ClculatorInsset</url>
+        <developerConnection>scm:git:https://github.com/morganJouard/ClculatorInsset.git</developerConnection>
+    </scm>
 
   <properties>
     <!-- Convenience property to set the GWT version -->
@@ -35,7 +42,7 @@
         </pluginRepository>
     </pluginRepositories>
     <repositories>
-        <repository>
+        <!--<repository>
             <id>central</id>
             <name>Central Repository</name>
             <url>https://repo.maven.apache.org/maven2</url>
@@ -43,6 +50,10 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>-->
+        <repository>
+            <id>maven-group</id>
+            <url>http://localhost:8081/repository/insset-group/</url>
         </repository>
     </repositories>
   <dependencyManagement>
@@ -56,7 +67,16 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://localhost:8081/repository/insset-snapshot/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-release</id>
+            <url>http://localhost:8081/repository/insset-release/</url>
+        </repository>
+    </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>com.google.gwt</groupId>
@@ -86,7 +106,16 @@
     <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 
     <plugins>
-
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.4.2</version>
+            <configuration>
+                <tagNameFormat>v@{project.version}</tagNameFormat>
+                <autoVersionSubmodules>true</autoVersionSubmodules>
+                <releaseProfiles>releases</releaseProfiles>
+            </configuration>
+        </plugin>
       <!-- GWT Maven Plugin -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -112,5 +141,34 @@
       </plugin>
     </plugins>
   </build>
+      <profiles>
+          <profile>
+              <id>releases</id>
+              <build>
+                  <plugins>
+                      <plugin>
+                          <groupId>org.sonatype.plugins</groupId>
+                          <artifactId>nexus-staging-maven-plugin</artifactId>
+                          <version>1.5.1</version>
+                          <executions>
+                              <execution>
+                                  <id>default-deploy</id>
+                                  <phase>deploy</phase>
+                                  <goals>
+                                      <goal>deploy</goal>
+                                  </goals>
+                              </execution>
+                          </executions>
+                          <configuration>
+                              <serverId>nexus-releases</serverId>
+                              <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+                              <skipStaging>true</skipStaging>
+                          </configuration>
+                      </plugin>
+                  </plugins>
+              </build>
+          </profile>
+      </profiles>
+
 
 </project>
