@@ -9,9 +9,9 @@
 
 
     <scm>
-        <connection>scm:git:https://github.com/morganJouard/ClculatorInsset.git</connection>
-        <url>http://github.com/morganJouard/ClculatorInsset</url>
-        <developerConnection>scm:git:https://github.com/morganJouard/ClculatorInsset.git</developerConnection>
+        <connection>scm:git:https://github.com/morganJouard/calculatorRelease.git</connection>
+        <url>http://github.com/morganJouard/calculatorRelease</url>
+        <developerConnection>scm:git:https://github.com/morganJouard/calculatorRelease.git</developerConnection>
       <tag>v1.0</tag>
   </scm>
 
